@@ -1,12 +1,9 @@
 class Admin::AdminController < ApplicationController
-  before_action :authenticate_user!
-  before_action :check_admin
+  before_action :authenticate_user!, :check_admin
 
   layout 'admin'
 
-  def index
-
-  end
+  def index; end
 
   private
 
