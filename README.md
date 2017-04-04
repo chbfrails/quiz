@@ -12,3 +12,19 @@ then
 ### Run
 
 `rails s`
+
+### Demo User
+
+Admin User
+
+```
+email: admin@admin.com,
+password: 123456
+```
+
+User
+
+```
+email: user@user.com,
+password: 123456
+```
