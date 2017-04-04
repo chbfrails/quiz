@@ -1,0 +1,132 @@
+<section ng-controller='EditQuestionCtrl'>
+  <div class='row'>
+    <div class='container-fluid'>
+      <div class='pull-left'>
+        <h1><strong><i class='fa fa-database'></i> Manage Questions // Edit Question</strong></h1>
+      </div>
+      <div class='pull-right'>
+        <%= link_to 'Back', admin_question_index_path, class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <div class='row'>
+    <div class='container-fluid'>
+      <h3><strong>Question Section</strong></h3>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-sm-3'>
+      <h4>Question type:</h4>
+    </div>
+    <div class='col-sm-3'>
+      <div class='form-group'>
+        <select class='form-control' ng-model='postdata.question_type'>
+          <option ng-value='1'>Vocabulary</option>
+          <option ng-value='2'>Kanji</option>
+          <option ng-value='3'>Grammar</option>
+          <option ng-value='4'>Listening</option>
+        </select>
+      </div>
+    </div>
+    <div class='col-sm-3'>
+      <h4>Question level:</h4>
+    </div>
+    <div class='col-sm-3'>
+      <div class='form-group'>
+        <select class='form-control' ng-model='postdata.question_level'>
+          <option ng-value='4'>N4</option>
+          <option ng-value='3'>N3</option>
+          <option ng-value='2'>N2</option>
+          <option ng-value='1'>N1</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-sm-3'>
+      <h4>Question input:</h4>
+    </div>
+    <div class='col-sm-9'>
+      <div text-angular ng-model='postdata.question' ta-toolbar='[["bold","italics","underline",],["insertImage","insertLink"],["html"]]'></div>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-sm-3'>
+      <h4>Question output:</h4>
+    </div>
+    <div class='col-sm-9'>
+      <div ta-bind ng-model='postdata.question'></div>
+    </div>
+  </div>
+  <hr/>
+  <div class='row'>
+    <div class='container-fluid'>
+      <div class='pull-left'>
+        <h3><strong>Answer Section</strong></h3>
+      </div>
+      <div class='pull-right'>
+        <a class='btn btn-warning' ng-click='addAnswer()'>Add Answer</a>
+      </div>
+    </div>
+  </div>
+  <div class='container-fluid' ng-repeat='i in postdata.answers' ng-hide='i.markdelete'>
+    {{ i.markdelete }}
+    <hr/>
+    <h4><strong>Answer #{{ $index + 1 }} </strong>
+      <a class='btn btn-delete pull-right' ng-click='removeAnswer($index, i)'> remove </a>
+    </h4>
+
+    <div class='row'>
+      <div class='col-sm-3'>
+        <h4>Correct answer:</h4>
+      </div>
+      <div class='col-sm-9'>
+        <div class='checkbox'>
+          <label><input type='checkbox' ng-checked='i.correct' ng-model='i.correct'>This is correct answer</label>
+        </div>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-sm-3'>
+        <h4>Question input:</h4>
+      </div>
+      <div class='col-sm-9'>
+        <input type='text' class='form-control' ng-model='i.name'>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <div class='row text-center paddding-bottom-15'>
+    <a class='btn btn-success btn-lg' ng-click='editQuestion()'>Edit Question</a>
+  </div>
+  <script type='text/ng-template' id='editSuccess'>
+    <div class='row'>
+      <div class='container'>
+        <h1><strong>Edit Question finished!</strong></h1>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='container-fluid'>
+        <div class='text-right'>
+          <a class='btn btn-danger' ng-click='closeThisDialog()'>Close</a>
+        </div>
+      </div>
+    </div>
+  </script>
+  <script type='text/ng-template' id='editNotSuccess'>
+    <div class='row'>
+      <div class='container'>
+        <h1>Question<strong>can not</strong> be edited!</h1>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='container-fluid'>
+        <div class='text-right'>
+          <a class='btn btn-danger' ng-click='closeThisDialog()'>Close</a>
+        </div>
+      </div>
+    </div>
+  </script>
+  <div id='div-data' data-path='<%= @path %>' data-redirect-path='<%= @redirectpath %>' data-question='<%= @question.to_json(include: :answers) %>' class='hidden'></div>
+</section>

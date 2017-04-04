@@ -1,0 +1,41 @@
+<section ng-controller='QuestionCtrl'>
+  <div class='row'>
+    <div class='container-fluid'>
+      <div class='pull-left'>
+        <h1><strong><i class='fa fa-database'></i> Manage Questions</strong></h1>
+      </div>
+      <div class='pull-right'>
+        <%= link_to 'New Question', new_admin_question_path, class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <div ng-repeat='exam in examdata' class='exam'>
+    <div class='container-fluid'>
+      <div class='panel panel-primary'>
+        <div class='panel-heading'>
+          <ul class='list-inline margin-bottom-0'>
+            <li class='list-inline-item'>
+              <div><p>#{{ exam.id }} [N{{ exam.test_level }}]</p></div>
+              <div><p></p></div>
+            </li>
+            <li class='list-inline-item'>
+              <div ng-bind-html='exam.name'></div>
+            </li>
+            <li class='list-inline-item pull-right'>
+              <%= link_to 'Edit', URI::unescape(edit_admin_question_url('{{exam.id}}')), class: 'btn btn-warning' %>
+              <%= link_to 'Delete', URI::unescape(admin_question_delete_url('{{exam.id}}')), class: 'btn btn-danger', method: :post, data: {confirm: 'Are you sure?'} %>
+            </li>
+          </ul>
+        </div>
+        <div class='panel-body'>
+          <div ng-repeat='answer in exam.answers'>
+            <i class='fa fa-circle-o fa-2x'> {{answer.name}}</i>
+            <i class='fa fa-check fa-2x' ng-if='answer.correct'></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id='div-data' data-exam='<%= @questions.to_json(include: :answers) %>' data-delete-path='<%= @delete_path %>' class='hidden'></div>
+</section>

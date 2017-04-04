@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app='App'>
+<head>
+  <%= csrf_meta_tags %>
+  <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+  <%= stylesheet_link_tag 'application' %>
+  <title>Quiz</title>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='header'>
+    <nav class='navbar navbar-default'>
+      <div class='container'>
+        <div class='navbar-header'>
+          <button type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#navbar'>
+            <span class='sr-only'>Toggle navigation</span><i class='fa fa-bars'></i>
+          </button>
+          <%= link_to 'Quiz', root_path, class: 'navbar-brand' %>
+        </div>
+        <div class='collapse navbar-collapse' id='navbar'>
+          <ul class='nav navbar-nav navbar-right'>
+            <% if (user_signed_in? and current_user.email.to_s == 'admin@admin.com') %>
+                <li>
+                  <a>
+                    Hello, <%= current_user.email %>
+                  </a>
+                </li>
+                <li>
+                  <%= link_to '<i class="fa fa-tachometer"></i> Admin Dashboard'.html_safe, admin_path %>
+                </li>
+                <li>
+                  <%= link_to '<i class="fa fa-sign-out"></i> Sign out'.html_safe, destroy_user_session_path, :method => :delete %>
+                </li>
+            <% elsif user_signed_in? %>
+                <li>
+                  <a>
+                    Hello, <%= current_user.email %>
+                  </a>
+                </li>
+                <li>
+                  <%= link_to '<i class="fa fa-sign-out"></i> Sign out'.html_safe, destroy_user_session_path, :method => :delete %>
+                </li>
+            <% else %>
+                <li>
+                  <%= link_to '<i class="fa fa-sign-in"></i> Sign in'.html_safe, new_user_session_path %>
+                </li>
+                <li>
+                  <%= link_to '<i class="fa fa-id-card"></i> Sign up'.html_safe, new_user_registration_path %>
+                </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class='body'>
+    <%= yield %>
+  </div>
+  <div class='footer'>
+    <div class='container'>
+      <p>© 2017 • pongpolb .</p>
+      <ul class='list-inline'>
+        <li>
+          <a href='https://www.facebook.com/pongpolb'><i class='fa fa-facebook-official' aria-hidden='true'></i></a>
+        </li>
+        <li>
+          <a href='https://github.com/pongpolb'><i class='fa fa-github' aria-hidden='true'></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<%= javascript_include_tag 'application' %>
+</body>
+</html>
