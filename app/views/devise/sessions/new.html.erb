@@ -1,6 +1,12 @@
 <section class='login'>
   <div class='main'>
-    <h3>Please Log In, or <%= link_to 'Sign up', new_user_registration_path %></h3>
+    <h4>Please Log In, or
+      <%= 
+        link_to '<i class="fa fa-google" aria-hidden="true"></i> Sign in with Google'.html_safe,
+        user_google_oauth2_omniauth_authorize_path,
+        class: 'btn btn-primary'
+      %>
+    </h4>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class='form-group'>
           <label><i class='fa fa-envelope-o' aria-hidden='true'></i> Email</label>
@@ -10,13 +16,13 @@
           <label><i class='fa fa-key' aria-hidden='true'></i> Password</label>
           <%= f.password_field :password, autocomplete: 'off', type: 'password', class: 'form-control' %>
         </div>
-        <% if devise_mapping.rememberable? -%>
+        <% if devise_mapping.rememberable? %>
             <div class='checkbox'>
               <label>
                 <%= f.check_box :remember_me, type: 'checkbox' %> Remember Me
               </label>
             </div>
-        <% end -%>
+        <% end %>
         <div class='text-center'>
           <%= f.submit 'Log in', class: 'btn btn-primary' %>
         </div>
