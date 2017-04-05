@@ -13,7 +13,9 @@ then
 
 `rails s`
 
-### Demo User
+### Demo
+
+Link: https://quiz-platform-demo.herokuapp.com/
 
 Admin User
 
