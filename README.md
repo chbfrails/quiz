@@ -3,7 +3,7 @@
 A Pilot project for online quiz platform.
 
 ### Installation
-`https://github.com/pongpolb/quiz.git`
+`git clone https://github.com/pongpolb/quiz.git`
 
 then
 
